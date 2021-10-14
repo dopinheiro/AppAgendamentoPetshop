@@ -1,8 +1,19 @@
-# petshop
+## **PetShop**
 
-Aplicativo para agendamento de serviços de petshop
-Curso Análise e Desenvolviento de Sistema USF - Itatiba
-Professor Orientador: José Mathias
+Aplicativo para agendamento de serviços para **petshop** desenvolvido na disciplina de Desenvolvimento para Sistemas Móveis.
+
+**Grupo 4:** Caroline Knaip Diniz <br>
+         Diego de Oliveira Pinheiro <br>
+         Gabriel Franciscon Rosa <br>
+         Milena de Oliveira 
+
+**Professor orientador:** José Matias Lemes Filho
+
+Projeto desenvolvido no **figma**: [PetShop - Mobile](https://www.figma.com/file/CDfhEDngnpQmsR6SYw2ztT/Mobile-PetShop?node-id=0%3A1)
 
 
-![alt text](https://raw.githubusercontent.com/dopinheiro/AppAgendamentoPetshop/main/Screenshots/splash.png)
+### **Splash Page do aplicativo**
+<img src="./Screenshots/splash.png" alt="Splash" width="250" />
+
+___
+Análise e Desenvolvimento de Sistemas - USF Itatiba 
