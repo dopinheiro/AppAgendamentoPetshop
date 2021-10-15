@@ -2,7 +2,8 @@
 
 Aplicativo para agendamento de serviços para **petshop** desenvolvido na disciplina de Desenvolvimento para Sistemas Móveis.
 
-**Grupo 4:** Caroline Knaip Diniz <br>
+**Grupo 4:** <br>
+         Caroline Knaip Diniz <br>
          Diego de Oliveira Pinheiro <br>
          Gabriel Franciscon Rosa <br>
          Milena de Oliveira 
