@@ -16,11 +16,26 @@ dependencies:
 
   font_awesome_flutter: ^8.8.1
 
+  flutter_launcher_name: "^0.0.1"
+  flutter_native_splash: ^0.1.9
+  flutter_launcher_icons: ^0.8.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
+flutter_launcher_name:
+  name: "PetShop"
 
+flutter_native_splash:
+  color: "FFC069"
+  image: "assets/images/splashscreen.png"
+  fill: true
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/icon.png"
 
 flutter:
 
