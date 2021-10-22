@@ -4,7 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class LoginPage extends StatelessWidget {
+
+  static String tag = '/';
+
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -137,12 +141,20 @@ class LoginPage extends StatelessWidget {
                       color: AppColors.textPrimary
                      )
                   ),
-                  Text("Cadastre-se",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textSecondary
-                  ),)
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/register');
+                  },
+                  child: new Text(
+                    "Cadastre-se",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textSecondary
+                      ),
+                     )
+                   )
                   ],
               ),
             ),
