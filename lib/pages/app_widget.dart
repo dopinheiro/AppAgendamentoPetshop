@@ -6,6 +6,7 @@ import 'package:petshop/pages/contactPage.dart';
 import 'package:petshop/pages/homePage.dart';
 import 'package:petshop/pages/loginPage.dart';
 import 'package:petshop/pages/myPetsPage.dart';
+import 'package:petshop/pages/navigationBar.dart';
 import 'package:petshop/pages/newAppointmentsPage.dart';
 import 'package:petshop/pages/petPage.dart';
 import 'package:petshop/pages/profilePage.dart';
@@ -31,7 +32,8 @@ class AppWidget extends StatelessWidget {
         '/newappointments': (context) => NewAppointmentsPage(),
         '/pet': (context) => PetPage(),
         '/profile': (context) => ProfilePage(),
-        '/services': (context) => ServicesPage()
+        '/services': (context) => ServicesPage(),
+        '/navigation': (context) => BottomNavigation()
       },
     );
   }

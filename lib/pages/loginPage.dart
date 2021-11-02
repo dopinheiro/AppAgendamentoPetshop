@@ -113,7 +113,9 @@ class LoginPage extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(AppColors.purple),
               ),
-              onPressed: () { },
+              onPressed: () {
+                Navigator.pushNamed(context, '/navigation');
+               },
               child: const Text("ENTRAR", 
               style: TextStyle(
                 fontWeight: FontWeight.w600,
