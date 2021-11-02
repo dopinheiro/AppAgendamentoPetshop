@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:petshop/pages/appointmentsPage.dart';
+import 'package:petshop/pages/configPage.dart';
+import 'package:petshop/pages/homePage.dart';
+import 'package:petshop/pages/myPetsPage.dart';
+import 'package:petshop/pages/servicesPage.dart';
 import 'package:petshop/utils/colors/appColors.dart';
 
-class BottomAppbar extends StatefulWidget {
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({ Key key }) : super(key: key);
 
   @override
-  _BottomAppbarState createState() => _BottomAppbarState();
+  _BottomNavigationState createState() => _BottomNavigationState();
 }
 
-class _BottomAppbarState extends State<BottomAppbar> {
-  int _currentIndex = 0;
-
+class _BottomNavigationState extends State<BottomNavigation> {
+  int index = 0;
+  final screens = [
+    HomePage(),
+    MyPetPages(),
+    AppointmentsPage(),
+    ServicesPage(),
+    ConfigPage()
+  ];
+  
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      body: screens[index],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: AppColors.gray,
@@ -21,11 +36,12 @@ class _BottomAppbarState extends State<BottomAppbar> {
         unselectedItemColor: AppColors.brown,
         unselectedFontSize: 12,
         selectedFontSize: 15,
-        currentIndex: _currentIndex,
-        
+        currentIndex: index,
+
         onTap: (value) {
-          // Respond to item press.
-          setState(() => _currentIndex = value);
+          setState(() {
+            index = value;
+          });
         },
 
         items: [
@@ -48,11 +64,8 @@ class _BottomAppbarState extends State<BottomAppbar> {
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.cog, size: 30),
             label: "Config"),
-        ],),
-    );
+        ],
+     )
+   );
   }
 }
-       
-
-
-       
