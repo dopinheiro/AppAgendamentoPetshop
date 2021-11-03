@@ -11,13 +11,6 @@ class AppColors {
   static final Color text = purple;
   static final Color backgroundInput = Color(0xFFFFF2F5);
   static final Color textHint = brown;
-  
-
-
-
-
-
-
 
   static final Color textPrimary = brown;
   static final Color textSecondary = purple;

@@ -29,7 +29,7 @@ flutter_launcher_name:
 
 flutter_native_splash:
   color: "FFC069"
-  image: "assets/images/splashscreen.png"
+  image: "assets/images/splash.png"
   fill: true
 
 flutter_icons:

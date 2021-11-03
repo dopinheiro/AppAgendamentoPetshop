@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                          backgroundColor: MaterialStateProperty.all<Color>(AppColors.purple),
                   ),
                   onPressed: () {
+                    
                   },
                   child: const Text("Encontrar Servico", 
                   style: TextStyle(
