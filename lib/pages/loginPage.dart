@@ -75,7 +75,6 @@ class LoginPage extends StatelessWidget {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
-                  
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
                   obscuringCharacter: "*",
