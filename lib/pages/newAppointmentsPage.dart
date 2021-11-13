@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:petshop/utils/colors/appColors.dart';
+import 'package:http/http.dart' as http;
 
 class NewAppointmentsPage extends StatefulWidget {
   @override
@@ -8,6 +9,30 @@ class NewAppointmentsPage extends StatefulWidget {
 }
 
 class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
+  Future fetch() async {
+    var url = Uri.parse('http://192.168.100.78:5000/api/add-appointment');
+    var service = [];
+    var updatedDateTime = new DateTime(currentDate.year, currentDate.month,
+        currentDate.day, selectedTime.hour, selectedTime.minute);
+    print(updatedDateTime);
+    _isChecked.forEach((key, value) {
+      if (value == true) {
+        service.add(key);
+      }
+    });
+    print(service);
+    var response = await http.post(url, body: {
+      'date': currentDate.toString(),
+      'time': selectedTime.toString(),
+      'pet': pet,
+      'service': service.toString(),
+      'note': 'Tanto faz'
+    });
+    print(currentDate.toString());
+    print('Response status: ${response.statusCode}');
+    print('Response status: ${response.body}');
+  }
+
   DateTime currentDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
 
@@ -34,25 +59,20 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
       });
   }
 
-  // bool _isChecked = false;
-  // void checkBox() {
-  //   setState(() {
-  //     _isChecked = !_isChecked;
-  //   });
-  // }
+  String pet;
 
-//  var _isChecked = Map();
- var _isChecked = {
-    'banho': false,
-    'hidratacao': false,
-    'penteado': false,
-    'tosa': false,
-    'escovacao': false,
-    'corte_unha': false,
+  var _isChecked = {
+    '1': false,
+    '2': false,
+    '3': false,
+    '4': false,
+    '5': false,
+    '6': false,
   };
-  void changeChecks(String key){
+
+  void changeChecks(String key) {
     setState(() {
-    _isChecked[key]= !_isChecked[key];
+      _isChecked[key] = !_isChecked[key];
     });
   }
 
@@ -152,18 +172,34 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                     focusColor: Colors.white,
                     style: TextStyle(color: Colors.white),
                     iconEnabledColor: AppColors.purple,
-                    items: <String>[
-                      'Luna',
-                      'Steve',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
+                    // items: <String>[
+                    //   'Luna',
+                    //   'Steve',
+                    // ].map<DropdownMenuItem<String>>((String value) {
+                    //   return DropdownMenuItem<String>(
+                    //     value: value,
+                    //     child: Text(
+                    //       value,
+                    //       style: TextStyle(color: AppColors.brown),
+                    //     ),
+                    //   );
+                    // }).toList(),
+                    items: [
+                      DropdownMenuItem<String>(
+                        value: "1",
                         child: Text(
-                          value,
+                          "Luna",
                           style: TextStyle(color: AppColors.brown),
                         ),
-                      );
-                    }).toList(),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: "2",
+                        child: Text(
+                          "Steve",
+                          style: TextStyle(color: AppColors.brown),
+                        ),
+                      ),
+                    ],
                     hint: Text(
                       "Selecione um pet",
                       style: TextStyle(
@@ -172,21 +208,23 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                           fontWeight: FontWeight.w500),
                     ),
                     onChanged: (String value) {
-                      setState(() {});
+                      setState(() {
+                        pet = value;
+                      });
                     },
                   ),
                 )),
             Text("Serviços",
                 style: TextStyle(fontSize: 20, color: AppColors.purple)),
             Container(
-              child: Column(
+                child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 3),
                   child: Row(
                     children: [
                       SizedBox(
-                          key: Key("banho"),
+                          key: Key("1"),
                           width: 20.0,
                           height: 20.0,
                           child: Material(
@@ -195,14 +233,16 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 side: BorderSide(
                                     width: 1.0,
-                                    color: _isChecked["banho"]
+                                    color: _isChecked["1"]
                                         ? AppColors.purple
                                         : AppColors.purple)),
                             color: Colors.transparent,
                             child: InkWell(
-                                onTap: (){ changeChecks("banho"); },
+                                onTap: () {
+                                  changeChecks("1");
+                                },
                                 child: Visibility(
-                                  visible: _isChecked["banho"],
+                                  visible: _isChecked["1"],
                                   child: Icon(Icons.check,
                                       color: AppColors.brown, size: 20.0),
                                 )),
@@ -227,14 +267,16 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 side: BorderSide(
                                     width: 1.0,
-                                    color: _isChecked["hidratacao"]
+                                    color: _isChecked["2"]
                                         ? AppColors.purple
                                         : AppColors.purple)),
                             color: Colors.transparent,
                             child: InkWell(
-                                onTap: (){ changeChecks("hidratacao"); },
+                                onTap: () {
+                                  changeChecks("2");
+                                },
                                 child: Visibility(
-                                  visible: _isChecked["hidratacao"],
+                                  visible: _isChecked["2"],
                                   child: Icon(Icons.check,
                                       color: AppColors.brown, size: 20.0),
                                 )),
@@ -259,14 +301,16 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 side: BorderSide(
                                     width: 1.0,
-                                    color: _isChecked["penteado"]
+                                    color: _isChecked["3"]
                                         ? AppColors.purple
                                         : AppColors.purple)),
                             color: Colors.transparent,
                             child: InkWell(
-                                onTap: (){ changeChecks("penteado"); },
+                                onTap: () {
+                                  changeChecks("3");
+                                },
                                 child: Visibility(
-                                  visible: _isChecked["penteado"],
+                                  visible: _isChecked["3"],
                                   child: Icon(Icons.check,
                                       color: AppColors.brown, size: 20.0),
                                 )),
@@ -291,14 +335,16 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 side: BorderSide(
                                     width: 1.0,
-                                    color: _isChecked["tosa"]
+                                    color: _isChecked["4"]
                                         ? AppColors.purple
                                         : AppColors.purple)),
                             color: Colors.transparent,
                             child: InkWell(
-                                onTap: (){ changeChecks("tosa"); },
+                                onTap: () {
+                                  changeChecks("4");
+                                },
                                 child: Visibility(
-                                  visible: _isChecked["tosa"],
+                                  visible: _isChecked["4"],
                                   child: Icon(Icons.check,
                                       color: AppColors.brown, size: 20.0),
                                 )),
@@ -323,14 +369,16 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 side: BorderSide(
                                     width: 1.0,
-                                    color: _isChecked["escovacao"]
+                                    color: _isChecked["5"]
                                         ? AppColors.purple
                                         : AppColors.purple)),
                             color: Colors.transparent,
                             child: InkWell(
-                                onTap: (){ changeChecks("escovacao"); },
+                                onTap: () {
+                                  changeChecks("5");
+                                },
                                 child: Visibility(
-                                  visible: _isChecked["escovacao"],
+                                  visible: _isChecked["5"],
                                   child: Icon(Icons.check,
                                       color: AppColors.brown, size: 20.0),
                                 )),
@@ -353,14 +401,16 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                               borderRadius: BorderRadius.circular(8.0),
                               side: BorderSide(
                                   width: 1.0,
-                                  color: _isChecked["corte_unha"]
+                                  color: _isChecked["6"]
                                       ? AppColors.purple
                                       : AppColors.purple)),
                           color: Colors.transparent,
                           child: InkWell(
-                              onTap: (){ changeChecks("corte_unha");}, 
+                              onTap: () {
+                                changeChecks("6");
+                              },
                               child: Visibility(
-                                visible: _isChecked["corte_unha"],
+                                visible: _isChecked["6"],
                                 child: Icon(Icons.check,
                                     color: AppColors.brown, size: 20.0),
                               )),
@@ -390,7 +440,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide:
-                    BorderSide(color: AppColors.brown, width: 2.0),
+                            BorderSide(color: AppColors.brown, width: 2.0),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -420,7 +470,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                         MaterialStateProperty.all<Color>(AppColors.purple),
                   ),
                   onPressed: () {
-                    // Navigator.pushNamed(context, '/navigation');
+                    fetch();
                   },
                   child: const Text(
                     "Salvar",
