@@ -59,7 +59,15 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
       });
   }
 
-  String pet;
+  var pet={
+    "id": 0,
+    "name": "Selecione um pet"
+  };
+  
+  var pets = [
+    {"id": "1", "name":"Maya"},
+    {"id": "2", "name":"Steve"},
+  ];
 
   var _isChecked = {
     '1': false,
@@ -172,36 +180,19 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                     focusColor: Colors.white,
                     style: TextStyle(color: Colors.white),
                     iconEnabledColor: AppColors.purple,
-                    // items: <String>[
-                    //   'Luna',
-                    //   'Steve',
-                    // ].map<DropdownMenuItem<String>>((String value) {
-                    //   return DropdownMenuItem<String>(
-                    //     value: value,
-                    //     child: Text(
-                    //       value,
-                    //       style: TextStyle(color: AppColors.brown),
-                    //     ),
-                    //   );
-                    // }).toList(),
+
                     items: [
-                      DropdownMenuItem<String>(
-                        value: "1",
+                      for(final item in pets)
+                        DropdownMenuItem<String>(
+                        value: item["id"],
                         child: Text(
-                          "Luna",
+                          item["name"],
                           style: TextStyle(color: AppColors.brown),
                         ),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: "2",
-                        child: Text(
-                          "Steve",
-                          style: TextStyle(color: AppColors.brown),
-                        ),
-                      ),
-                    ],
+                      )
+                      ],
                     hint: Text(
-                      "Selecione um pet",
+                      pet["name"],
                       style: TextStyle(
                           color: AppColors.brown,
                           fontSize: 15,
@@ -209,7 +200,11 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                     ),
                     onChanged: (String value) {
                       setState(() {
-                        pet = value;
+                        for (var item in pets) {
+                          if (item["id"]==value) {
+                            pet = item;
+                          };
+                        };
                       });
                     },
                   ),
