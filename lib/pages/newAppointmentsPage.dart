@@ -1,12 +1,15 @@
 import 'dart:async';
+
+import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:petshop/utils/colors/appColors.dart';
 import 'package:http/http.dart' as http;
 
 class NewAppointmentsPage extends StatefulWidget {
-  int appointmentId;
-  NewAppointmentsPage(this.appointmentId);
+    int appointmentId;
+    NewAppointmentsPage(this.appointmentId);
+
   @override
   _NewAppointmentsPageState createState() => _NewAppointmentsPageState();
 }
@@ -15,8 +18,8 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
   Future fetch() async {
     var url = Uri.parse('http://192.168.100.67:5000/api/add-appointment');
     var service = [];
-    var updatedDateTime = new DateTime(currentDate.year, currentDate.month,
-        currentDate.day, selectedTime.hour, selectedTime.minute);
+    var updatedDateTime = new DateTime(newAppointment.date.year, newAppointment.date.month,
+        newAppointment.date.day, selectedTime.hour, selectedTime.minute);
     var response = await http.post(url, body: {
       'date': DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime),
       'pet': newAppointment.pet.id.toString(),
@@ -24,7 +27,32 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
       'note': newAppointment.note
     });
     print('Response status: ${response.body}');
+    print(DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime));
   }
+
+  Future createAppointment() async {
+    if (widget.appointmentId>0) {
+      print("http://192.168.100.78:5000/api/get-appointment/${widget.appointmentId}");
+      var url = Uri.parse("http://192.168.100.78:5000/api/get-appointments/${widget.appointmentId}");
+      var response = await http.get(url);
+      var json = jsonDecode(response.body);
+      setState( () {
+
+      newAppointment.id = json["id"];
+      newAppointment.date = DateTime.parse(json["date"]);
+      newAppointment.note = json["note"];
+      });
+      // newAppointment.pet = json["pet"];
+    }
+  }
+
+    @override
+    @mustCallSuper
+    // ignore: must_call_super
+    void initState() {
+      createAppointment();
+    }
+
   DateTime currentDate = DateTime.now();
   TimeOfDay selectedTime;
 
@@ -71,8 +99,6 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
     status: Null,
     note: Null
   );
-
-
   List<Service> services = [
     Service(id:1,name:"Banho", isChecked:false),
     Service(id:2,name:"Tosa", isChecked:false),
