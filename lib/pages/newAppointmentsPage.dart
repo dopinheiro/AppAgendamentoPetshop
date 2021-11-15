@@ -59,8 +59,8 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
   };
   
   var pets = [
-    {"id": "1", "name":"Maya"},
-    {"id": "2", "name":"Steve"},
+    {"id": 1, "name":"Maya"},
+    {"id": 2, "name":"Steve"},
   ];
 
   Appointment newAppointment = Appointment(
@@ -198,7 +198,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                     items: [
                       for(final item in pets)
                         DropdownMenuItem<String>(
-                        value: item["id"],
+                        value: item["id"].toString(),
                         child: Text(
                           item["name"],
                           style: TextStyle(color: AppColors.brown),
@@ -206,7 +206,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                       )
                       ],
                     hint: Text(
-                      pet["name"],
+                      newAppointment.pet.name,
                       style: TextStyle(
                           color: AppColors.brown,
                           fontSize: 15,
@@ -215,8 +215,8 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                     onChanged: (String value) {
                       setState(() {
                         for (var item in pets) {
-                          if (item["id"]==value) {
-                            pet = item;
+                          if (item["id"].toString()==value) {
+                            newAppointment.setPet(item);
                           };
                         };
                       });
@@ -276,6 +276,13 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                     style: TextStyle(color: AppColors.purple, fontSize: 20),
                   ),
                   TextField(
+
+                      onChanged: (String text) {
+                        setState( () {
+                          newAppointment.note=text;
+                        });
+                        print(newAppointment.note);
+                      },
                     maxLines: 5,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -351,6 +358,10 @@ class Appointment {
       status:json['status'],
       note:json['note']
     );
+  }
+
+  setPet(Map pet) {
+    this.pet = Pet.fromJson(pet);
   }
 
   setServices(int id, String action) {
