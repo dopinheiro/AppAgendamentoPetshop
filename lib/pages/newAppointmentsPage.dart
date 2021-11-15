@@ -16,14 +16,11 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
     var updatedDateTime = new DateTime(currentDate.year, currentDate.month,
         currentDate.day, selectedTime.hour, selectedTime.minute);
     var response = await http.post(url, body: {
-      'date': currentDate.toString(),
-      'time': selectedTime.toString(),
-      'pet': pet,
-      'service': service.toString(),
-      'note': 'Tanto faz'
+      'date': DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime),
+      'pet': newAppointment.pet.id.toString(),
+      'service': newAppointment.services.toString(),
+      'note': newAppointment.note
     });
-    print(currentDate.toString());
-    print('Response status: ${response.statusCode}');
     print('Response status: ${response.body}');
   }
 
