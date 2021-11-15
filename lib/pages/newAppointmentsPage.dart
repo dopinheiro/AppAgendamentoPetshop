@@ -5,6 +5,8 @@ import 'package:petshop/utils/colors/appColors.dart';
 import 'package:http/http.dart' as http;
 
 class NewAppointmentsPage extends StatefulWidget {
+  int appointmentId;
+  NewAppointmentsPage(this.appointmentId);
   @override
   _NewAppointmentsPageState createState() => _NewAppointmentsPageState();
 }
@@ -23,7 +25,6 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
     });
     print('Response status: ${response.body}');
   }
-
   DateTime currentDate = DateTime.now();
   TimeOfDay selectedTime;
 
