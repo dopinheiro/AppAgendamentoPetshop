@@ -16,13 +16,22 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
 
   List cardValues=[];
   Future getApointments() async {
-    var url = Uri.parse('http://192.168.100.78:5000/api/get-appointments/');
+    var url = Uri.parse("http://192.168.100.78:5000/api/get-appointments/");
     var response = await http.get(url);
     var json = jsonDecode(response.body);
 
     setState(() {
       cardValues = json['appointments'];
     });
+  }
+
+    Future delAppointment(int id) async {
+    var url = Uri.parse('http://192.168.100.78:5000/api/del-appointment/${id}');
+    var response = await http.delete(url);
+    // Navigator.pushNamed(context, '/appointments');
+
+    getApointments();
+
   }
 
   @override
@@ -105,7 +114,8 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                     Container(
                       child: GestureDetector(
                         onTap: () {
-                        Navigator.pushNamed(context, '');},
+                        delAppointment(card["id"]);
+                        },
                         child: Icon(Icons.delete_forever, color: AppColors.brown),
                       )
                     ),
