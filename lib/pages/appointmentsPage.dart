@@ -13,7 +13,7 @@ class AppointmentsPage extends StatefulWidget {
 class _AppointmentsPageState extends State<AppointmentsPage> {
   List cardValues=[];
   Future getApointments() async {
-    var url = Uri.parse('http://192.168.100.78:5000/api/get-appointments/');
+    var url = Uri.parse('http://192.168.100.67:5000/api/get-appointments/');
     var response = await http.get(url);
     var json = jsonDecode(response.body);
 
