@@ -29,7 +29,7 @@ class AppWidget extends StatelessWidget {
         '/contact': (context) => ContactPage(),
         '/home': (context) => HomePage(),
         '/mypets': (context) => MyPetPages(),
-        '/newappointments': (context) => NewAppointmentsPage(),
+        '/newappointments': (context) => NewAppointmentsPage(0),
         '/pet': (context) => PetPage(),
         '/profile': (context) => ProfilePage(),
         '/services': (context) => ServicesPage(),
