@@ -11,7 +11,7 @@ class AppointmentsPage extends StatefulWidget {
 }
 
 class _AppointmentsPageState extends State<AppointmentsPage> {
-  var cardValues;
+  List cardValues=[];
   Future getApointments() async {
     var url = Uri.parse('http://192.168.100.78:5000/api/get-appointments/');
     var response = await http.get(url);
@@ -50,60 +50,60 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
               ),
             ),
           ),
-          
-          for(final card in cardValues) 
-            Container(
-            height: MediaQuery.of(context).size.height*0.15,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColors.ligthYellow,
-              borderRadius: BorderRadius.circular(10)
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+          if(cardValues.length>0)
+            for(final card in cardValues) 
               Container(
-                child:
-                Row(
-                children: [
-                Column(
+              height: MediaQuery.of(context).size.height*0.15,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.ligthYellow,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                Icon(Icons.calendar_today, color: AppColors.brown),
-                Icon(Icons.timer, color: AppColors.brown)
-              ],),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                    Text(card['pet']['name'], 
-                    style: TextStyle(
-                      color: AppColors.brown,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15
-                    ),),
-                    Text("  15:00",
-                     style: TextStyle(
-                      color: AppColors.brown,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15
-                    ),)
-              ],),
-                ),
-                ],)),
+                Container(
+                  child:
+                  Row(
+                  children: [
+                  Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  Icon(Icons.calendar_today, color: AppColors.brown),
+                  Icon(Icons.timer, color: AppColors.brown)
+                ],),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                      Text(card['pet']['name'], 
+                      style: TextStyle(
+                        color: AppColors.brown,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15
+                      ),),
+                      Text("  15:00",
+                      style: TextStyle(
+                        color: AppColors.brown,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15
+                      ),)
+                ],),
+                  ),
+                  ],)),
               
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                Icon(Icons.delete_forever, color: AppColors.brown),
-                Icon(Icons.edit, color: AppColors.brown)
-              ],),
-                ]
-            ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  Icon(Icons.delete_forever, color: AppColors.brown),
+                  Icon(Icons.edit, color: AppColors.brown)
+                ],),
+                  ]
+              ),
           ),
 
           ElevatedButton(

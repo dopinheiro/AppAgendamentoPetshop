@@ -78,6 +78,15 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
     '6': false,
   };
 
+  List<Service> services = [
+    Service(id:1,name:"Banho", isChecked:false),
+    Service(id:2,name:"asd", isChecked:false),
+    Service(id:3,name:"Baasdasho", isChecked:true),
+    Service(id:4,name:"asdfasdf", isChecked:false),
+    Service(id:5,name:"Basdfasdf", isChecked:false),
+    Service(id:6,name:"Basdfasdf", isChecked:false)
+  ];
+
   void changeChecks(String key) {
     setState(() {
       _isChecked[key] = !_isChecked[key];
@@ -214,208 +223,246 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
             Container(
                 child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          key: Key("1"),
-                          width: 20.0,
-                          height: 20.0,
-                          child: Material(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color: _isChecked["1"]
-                                        ? AppColors.purple
-                                        : AppColors.purple)),
-                            color: Colors.transparent,
-                            child: InkWell(
-                                onTap: () {
-                                  changeChecks("1");
-                                },
-                                child: Visibility(
-                                  visible: _isChecked["1"],
-                                  child: Icon(Icons.check,
-                                      color: AppColors.brown, size: 20.0),
-                                )),
-                          )),
-                      Text(
-                        " Banho",
-                        style: TextStyle(color: AppColors.brown, fontSize: 17),
-                      )
-                    ],
-                  ),
+                for(final service in services)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 3),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            key: Key("1"),
+                            width: 20.0,
+                            height: 20.0,
+                            child: Material(
+                              clipBehavior: Clip.antiAlias,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  side: BorderSide(
+                                      width: 1.0,
+                                      color: _isChecked["1"]
+                                          ? AppColors.purple
+                                          : AppColors.purple)),
+                              color: Colors.transparent,
+                              child: InkWell(
+                                  onTap: () {
+                                    changeChecks("1");
+                                  },
+                                  child: Visibility(
+                                    visible: service.isChecked,
+                                    child: Icon(Icons.check,
+                                        color: AppColors.brown, size: 20.0),
+                                  )),
+                            )),
+                        Text(
+                          service.name,
+                          style: TextStyle(color: AppColors.brown, fontSize: 17),
+                        )
+                      ],
+                    ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: Material(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color: _isChecked["2"]
-                                        ? AppColors.purple
-                                        : AppColors.purple)),
-                            color: Colors.transparent,
-                            child: InkWell(
-                                onTap: () {
-                                  changeChecks("2");
-                                },
-                                child: Visibility(
-                                  visible: _isChecked["2"],
-                                  child: Icon(Icons.check,
-                                      color: AppColors.brown, size: 20.0),
-                                )),
-                          )),
-                      Text(
-                        " Hidratação",
-                        style: TextStyle(color: AppColors.brown, fontSize: 17),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: Material(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color: _isChecked["3"]
-                                        ? AppColors.purple
-                                        : AppColors.purple)),
-                            color: Colors.transparent,
-                            child: InkWell(
-                                onTap: () {
-                                  changeChecks("3");
-                                },
-                                child: Visibility(
-                                  visible: _isChecked["3"],
-                                  child: Icon(Icons.check,
-                                      color: AppColors.brown, size: 20.0),
-                                )),
-                          )),
-                      Text(
-                        " Penteado",
-                        style: TextStyle(color: AppColors.brown, fontSize: 17),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: Material(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color: _isChecked["4"]
-                                        ? AppColors.purple
-                                        : AppColors.purple)),
-                            color: Colors.transparent,
-                            child: InkWell(
-                                onTap: () {
-                                  changeChecks("4");
-                                },
-                                child: Visibility(
-                                  visible: _isChecked["4"],
-                                  child: Icon(Icons.check,
-                                      color: AppColors.brown, size: 20.0),
-                                )),
-                          )),
-                      Text(
-                        " Tosa",
-                        style: TextStyle(color: AppColors.brown, fontSize: 17),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: Material(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color: _isChecked["5"]
-                                        ? AppColors.purple
-                                        : AppColors.purple)),
-                            color: Colors.transparent,
-                            child: InkWell(
-                                onTap: () {
-                                  changeChecks("5");
-                                },
-                                child: Visibility(
-                                  visible: _isChecked["5"],
-                                  child: Icon(Icons.check,
-                                      color: AppColors.brown, size: 20.0),
-                                )),
-                          )),
-                      Text(
-                        " Escovação dos dentes",
-                        style: TextStyle(color: AppColors.brown, fontSize: 17),
-                      )
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                        width: 20.0,
-                        height: 20.0,
-                        child: Material(
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              side: BorderSide(
-                                  width: 1.0,
-                                  color: _isChecked["6"]
-                                      ? AppColors.purple
-                                      : AppColors.purple)),
-                          color: Colors.transparent,
-                          child: InkWell(
-                              onTap: () {
-                                changeChecks("6");
-                              },
-                              child: Visibility(
-                                visible: _isChecked["6"],
-                                child: Icon(Icons.check,
-                                    color: AppColors.brown, size: 20.0),
-                              )),
-                        )),
-                    Text(
-                      " Corte de unhas",
-                      style: TextStyle(color: AppColors.brown, fontSize: 17),
-                    )
-                  ],
-                ),
+
+
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 3),
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //           key: Key("1"),
+                //           width: 20.0,
+                //           height: 20.0,
+                //           child: Material(
+                //             clipBehavior: Clip.antiAlias,
+                //             shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8.0),
+                //                 side: BorderSide(
+                //                     width: 1.0,
+                //                     color: _isChecked["1"]
+                //                         ? AppColors.purple
+                //                         : AppColors.purple)),
+                //             color: Colors.transparent,
+                //             child: InkWell(
+                //                 onTap: () {
+                //                   changeChecks("1");
+                //                 },
+                //                 child: Visibility(
+                //                   visible: _isChecked["1"],
+                //                   child: Icon(Icons.check,
+                //                       color: AppColors.brown, size: 20.0),
+                //                 )),
+                //           )),
+                //       Text(
+                //         " Banho",
+                //         style: TextStyle(color: AppColors.brown, fontSize: 17),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 3),
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //           width: 20.0,
+                //           height: 20.0,
+                //           child: Material(
+                //             clipBehavior: Clip.antiAlias,
+                //             shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8.0),
+                //                 side: BorderSide(
+                //                     width: 1.0,
+                //                     color: _isChecked["2"]
+                //                         ? AppColors.purple
+                //                         : AppColors.purple)),
+                //             color: Colors.transparent,
+                //             child: InkWell(
+                //                 onTap: () {
+                //                   changeChecks("2");
+                //                 },
+                //                 child: Visibility(
+                //                   visible: _isChecked["2"],
+                //                   child: Icon(Icons.check,
+                //                       color: AppColors.brown, size: 20.0),
+                //                 )),
+                //           )),
+                //       Text(
+                //         " Hidratação",
+                //         style: TextStyle(color: AppColors.brown, fontSize: 17),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 3),
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //           width: 20.0,
+                //           height: 20.0,
+                //           child: Material(
+                //             clipBehavior: Clip.antiAlias,
+                //             shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8.0),
+                //                 side: BorderSide(
+                //                     width: 1.0,
+                //                     color: _isChecked["3"]
+                //                         ? AppColors.purple
+                //                         : AppColors.purple)),
+                //             color: Colors.transparent,
+                //             child: InkWell(
+                //                 onTap: () {
+                //                   changeChecks("3");
+                //                 },
+                //                 child: Visibility(
+                //                   visible: _isChecked["3"],
+                //                   child: Icon(Icons.check,
+                //                       color: AppColors.brown, size: 20.0),
+                //                 )),
+                //           )),
+                //       Text(
+                //         " Penteado",
+                //         style: TextStyle(color: AppColors.brown, fontSize: 17),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 3),
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //           width: 20.0,
+                //           height: 20.0,
+                //           child: Material(
+                //             clipBehavior: Clip.antiAlias,
+                //             shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8.0),
+                //                 side: BorderSide(
+                //                     width: 1.0,
+                //                     color: _isChecked["4"]
+                //                         ? AppColors.purple
+                //                         : AppColors.purple)),
+                //             color: Colors.transparent,
+                //             child: InkWell(
+                //                 onTap: () {
+                //                   changeChecks("4");
+                //                 },
+                //                 child: Visibility(
+                //                   visible: _isChecked["4"],
+                //                   child: Icon(Icons.check,
+                //                       color: AppColors.brown, size: 20.0),
+                //                 )),
+                //           )),
+                //       Text(
+                //         " Tosa",
+                //         style: TextStyle(color: AppColors.brown, fontSize: 17),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 3),
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //           width: 20.0,
+                //           height: 20.0,
+                //           child: Material(
+                //             clipBehavior: Clip.antiAlias,
+                //             shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(8.0),
+                //                 side: BorderSide(
+                //                     width: 1.0,
+                //                     color: _isChecked["5"]
+                //                         ? AppColors.purple
+                //                         : AppColors.purple)),
+                //             color: Colors.transparent,
+                //             child: InkWell(
+                //                 onTap: () {
+                //                   changeChecks("5");
+                //                 },
+                //                 child: Visibility(
+                //                   visible: _isChecked["5"],
+                //                   child: Icon(Icons.check,
+                //                       color: AppColors.brown, size: 20.0),
+                //                 )),
+                //           )),
+                //       Text(
+                //         " Escovação dos dentes",
+                //         style: TextStyle(color: AppColors.brown, fontSize: 17),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // Row(
+                //   children: [
+                //     SizedBox(
+                //         width: 20.0,
+                //         height: 20.0,
+                //         child: Material(
+                //           clipBehavior: Clip.antiAlias,
+                //           shape: RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(8.0),
+                //               side: BorderSide(
+                //                   width: 1.0,
+                //                   color: _isChecked["6"]
+                //                       ? AppColors.purple
+                //                       : AppColors.purple)),
+                //           color: Colors.transparent,
+                //           child: InkWell(
+                //               onTap: () {
+                //                 changeChecks("6");
+                //               },
+                //               child: Visibility(
+                //                 visible: _isChecked["6"],
+                //                 child: Icon(Icons.check,
+                //                     color: AppColors.brown, size: 20.0),
+                //               )),
+                //         )),
+                //     Text(
+                //       " Corte de unhas",
+                //       style: TextStyle(color: AppColors.brown, fontSize: 17),
+                //     )
+                //   ],
+                // ),
               ],
             )),
             Container(
@@ -480,6 +527,61 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class Appointment {
+  int id;
+  DateTime date;
+  Pet pet;
+  String status;
+  String note;
+
+  Appointment({this.id, this.date, this.pet, this.status, this.note} );
+
+  factory Appointment.fromJson(Map json) {
+    return Appointment(
+      id:json['id'],
+      date:json['date'],
+      pet:Pet.fromJson(json['pet']),
+      status:json['status'],
+      note:json['note']
+    );
+  }
+}
+
+class Pet {
+  int id;
+  String name;
+  String proprietary;
+  String specie;
+
+  Pet({this.id, this.name,this.proprietary,this.specie});
+
+  factory Pet.fromJson(Map json) {
+    return Pet(
+      id:json['id'],
+      name:json['name'],
+      proprietary:json['proprietary'],
+      specie:json['specie']
+    );
+  }
+}
+
+class Service {
+  int id;
+  String name;
+  bool isChecked;
+
+  Service({this.id, this.name, this.isChecked});
+
+  factory Service.fromJson(Map json) {
+    return Service(
+      id:json['id'],
+      name:json['name'],
+      isChecked:json['isChecked']
     );
   }
 }
