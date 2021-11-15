@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'package:intl/intl.dart';
 import 'dart:convert';
-
+import 'package:petshop/pages/newAppointmentsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:petshop/utils/colors/appColors.dart';
 import 'package:http/http.dart' as http;
@@ -11,9 +12,11 @@ class AppointmentsPage extends StatefulWidget {
 }
 
 class _AppointmentsPageState extends State<AppointmentsPage> {
+
+
   List cardValues=[];
   Future getApointments() async {
-    var url = Uri.parse('http://192.168.100.67:5000/api/get-appointments/');
+    var url = Uri.parse('http://192.168.100.78:5000/api/get-appointments/');
     var response = await http.get(url);
     var json = jsonDecode(response.body);
 
@@ -80,13 +83,13 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                      Text(card['pet']['name'], 
+                      Text( DateFormat('dd/MM/yyyy').format(DateTime.parse(card['date'])),
                       style: TextStyle(
                         color: AppColors.brown,
                         fontWeight: FontWeight.bold,
                         fontSize: 15
                       ),),
-                      Text("  15:00",
+                      Text( DateFormat('kk:mm').format(DateTime.parse(card['date'])),
                       style: TextStyle(
                         color: AppColors.brown,
                         fontWeight: FontWeight.bold,
@@ -99,8 +102,21 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  Icon(Icons.delete_forever, color: AppColors.brown),
-                  Icon(Icons.edit, color: AppColors.brown)
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                        Navigator.pushNamed(context, '');},
+                        child: Icon(Icons.delete_forever, color: AppColors.brown),
+                      )
+                    ),
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                        // Navigator.pushNamed(context, '/newappointments');
+                        Navigator.push(context, MaterialPageRoute( builder: (context) => NewAppointmentsPage(card["id"]) ));
+                        },
+                        child: Icon(Icons.edit, color: AppColors.brown),
+                    ))
                 ],),
                   ]
               ),

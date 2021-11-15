@@ -16,7 +16,7 @@ class NewAppointmentsPage extends StatefulWidget {
 
 class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
   Future fetch() async {
-    var url = Uri.parse('http://192.168.100.78:5000/api/add-appointment');
+    var url = Uri.parse('http://192.168.100.67:5000/api/add-appointment');
     var service = [];
     var updatedDateTime = new DateTime(newAppointment.date.year, newAppointment.date.month,
         newAppointment.date.day, selectedTime.hour, selectedTime.minute);
