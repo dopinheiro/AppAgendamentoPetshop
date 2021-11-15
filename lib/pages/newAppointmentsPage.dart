@@ -16,19 +16,35 @@ class NewAppointmentsPage extends StatefulWidget {
 
 class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
   Future fetch() async {
-    var url = Uri.parse('http://192.168.100.67:5000/api/add-appointment');
-    var service = [];
-    var updatedDateTime = new DateTime(newAppointment.date.year, newAppointment.date.month,
-        newAppointment.date.day, selectedTime.hour, selectedTime.minute);
-    var response = await http.post(url, body: {
-      'date': DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime),
-      'pet': newAppointment.pet.id.toString(),
-      'service': newAppointment.services.toString(),
-      'note': newAppointment.note
-    });
-    print('Response status: ${response.body}');
-    print(DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime));
-  }
+    if (newAppointment.id==0) {
+      var url = Uri.parse('http://192.168.100.78:5000/api/add-appointment');
+      var updatedDateTime = new DateTime(newAppointment.date.year, newAppointment.date.month,
+          newAppointment.date.day, selectedTime.hour, selectedTime.minute);
+      var response = await http.post(url, body: {
+        'date': DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime),
+        'pet': newAppointment.pet.id.toString(),
+        'service': newAppointment.services.toString(),
+        'note': newAppointment.note
+      });
+      print('Response status: ${response.body}');
+      print(DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime));
+    } else {
+        var url = Uri.parse("http://192.168.100.78:5000/api/edit-appointment/${widget.appointmentId}");
+        var updatedDateTime = new DateTime(newAppointment.date.year, newAppointment.date.month,
+          newAppointment.date.day, selectedTime.hour, selectedTime.minute);
+        var response = await http.put(url, body: {
+          'id': newAppointment.id.toString(),
+          'date': DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime),
+          'pet': newAppointment.pet.id.toString(),
+          'service': newAppointment.services.toString(),
+          'note': newAppointment.note
+        });
+        print('Response status: ${response.body}');
+        print(DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime));
+    }
+
+    }
+    
 
   Future createAppointment() async {
     if (widget.appointmentId>0) {
@@ -40,9 +56,15 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
 
       newAppointment.id = json["id"];
       newAppointment.date = DateTime.parse(json["date"]);
+      newAppointment.setPet(json["pet"]);
       newAppointment.note = json["note"];
-      });
-      // newAppointment.pet = json["pet"];
+
+      for (final item in json["services"]) {
+        changeChecks(item['id']);
+      }
+
+      selectedTime = TimeOfDay.fromDateTime(newAppointment.date);
+    });
     }
   }
 
@@ -325,7 +347,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                       ),
                       filled: true,
                       fillColor: Color(0xFFFFF2F5),
-                      hintText: "Insira sua observação",
+                      hintText: newAppointment.note !=Null ? newAppointment.note : "Insira sua observação",
                       labelStyle: TextStyle(
                         color: AppColors.brown,
                         fontSize: 20,
