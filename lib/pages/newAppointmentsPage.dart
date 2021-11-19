@@ -42,6 +42,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
         print('Response status: ${response.body}');
         print(DateFormat('yyyy-MM-dd kk:mm').format(updatedDateTime));
     }
+    Navigator.pop(context);
 
     }
     
@@ -128,7 +129,6 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
     Service(id:4,name:"Hidratação", isChecked:false),
     Service(id:5,name:"Penteado", isChecked:false),
     Service(id:6,name:"Escovação de Dentes", isChecked:false),
-    Service(id:7,name:"Meu banho", isChecked:false)
   ];
 
   void changeChecks(int key) {
