@@ -5,7 +5,6 @@ Aplicativo para agendamento de serviços para **petshop** desenvolvido na discip
 **Grupo 4:** <br>
          Caroline Knaip Diniz <br>
          Diego de Oliveira Pinheiro <br>
-         Gabriel Franciscon Rosa <br>
          Milena de Oliveira 
 
 **Professor orientador:** José Matias Lemes Filho
