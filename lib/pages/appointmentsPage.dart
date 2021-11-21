@@ -28,11 +28,34 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
     Future delAppointment(int id) async {
     var url = Uri.parse('http://192.168.100.78:5000/api/del-appointment/${id}');
     var response = await http.delete(url);
-    // Navigator.pushNamed(context, '/appointments');
 
     getApointments();
 
   }
+  _showDialog(BuildContext context, int appointmentId) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: new Text("Excluir agendamento"),
+        content: new Text("Tem certeza que deseja excluir?"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancelar'),
+            child: Text("Cancelar", style: TextStyle(color: AppColors.brown))
+          ),
+          TextButton(
+            onPressed: () {
+              delAppointment(appointmentId);
+              Navigator.pop(context);
+            },
+            child: Text("Excluir", style: TextStyle(color: Colors.red))
+          ),
+        ],
+      );
+    },
+  );
+}
 
   @override
   @mustCallSuper
@@ -45,8 +68,9 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: EdgeInsets.all(20),
+      body: 
+      Padding(
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -62,76 +86,82 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
               ),
             ),
           ),
-          if(cardValues.length>0)
-            for(final card in cardValues) 
-              Container(
-              height: MediaQuery.of(context).size.height*0.15,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppColors.ligthYellow,
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+          Expanded(
+          child:ListView.builder(
+            itemCount: cardValues.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child:
                 Container(
-                  child:
-                  Row(
-                  children: [
-                  Column(
+                height: MediaQuery.of(context).size.height*0.15,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.ligthYellow,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  Icon(Icons.calendar_today, color: AppColors.brown),
-                  Icon(Icons.timer, color: AppColors.brown)
-                ],),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                      Text( DateFormat('dd/MM/yyyy').format(DateTime.parse(card['date'])),
-                      style: TextStyle(
-                        color: AppColors.brown,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15
-                      ),),
-                      Text( DateFormat('kk:mm').format(DateTime.parse(card['date'])),
-                      style: TextStyle(
-                        color: AppColors.brown,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15
-                      ),)
-                ],),
-                  ),
-                  ],)),
-              
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: GestureDetector(
-                        onTap: () {
-                        delAppointment(card["id"]);
-                        },
-                        child: Icon(Icons.delete_forever, color: AppColors.brown),
-                      )
+                  Container(
+                    child:
+                    Row(
+                    children: [
+                    Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    Icon(Icons.calendar_today, color: AppColors.brown),
+                    Icon(Icons.timer, color: AppColors.brown)
+                  ],),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                        Text( DateFormat('dd/MM/yyyy').format(DateTime.parse(cardValues[index]['date'])),
+                        style: TextStyle(
+                          color: AppColors.brown,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15
+                        ),),
+                        Text( DateFormat('kk:mm').format(DateTime.parse(cardValues[index]['date'])),
+                        style: TextStyle(
+                          color: AppColors.brown,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15
+                        ),)
+                  ],),
                     ),
-                    Container(
-                      child: GestureDetector(
-                        onTap: () {
-                        // Navigator.pushNamed(context, '/newappointments');
-                        Navigator.push(context, MaterialPageRoute( builder: (context) => NewAppointmentsPage(card["id"]) ));
-                        },
-                        child: Icon(Icons.edit, color: AppColors.brown),
-                    ))
-                ],),
-                  ]
-              ),
-          ),
-
+                    ],)),
+                
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: GestureDetector(
+                          onTap: () {
+                            _showDialog(context,cardValues[index]["id"]);
+                          },
+                          child: Icon(Icons.delete_forever, color: AppColors.brown),
+                        )
+                      ),
+                      Container(
+                        child: GestureDetector(
+                          onTap: () {
+                          // Navigator.pushNamed(context, '/newappointments');
+                          Navigator.push(context, MaterialPageRoute( builder: (context) => NewAppointmentsPage(cardValues[index]["id"]) ));
+                          },
+                          child: Icon(Icons.edit, color: AppColors.brown),
+                      ))
+                  ],),
+                    ]
+                ),
+          ));
+            }
+          ),),
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor:
@@ -163,3 +193,4 @@ class CardValue {
 
   CardValue(this.id, this.date, this.petName, this.status);
 }
+

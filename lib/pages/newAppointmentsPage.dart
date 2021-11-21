@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ class NewAppointmentsPage extends StatefulWidget {
 }
 
 class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
+
   Future fetch() async {
     if (newAppointment.id==0) {
       var url = Uri.parse('http://192.168.100.78:5000/api/add-appointment');
@@ -157,7 +157,9 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
               color: AppColors.brown,
             ),
           )),
-      body: Container(
+      body: 
+      
+      Container(
         padding: EdgeInsets.only(top: 4, left: 40, right: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -367,6 +369,7 @@ class _NewAppointmentsPageState extends State<NewAppointmentsPage> {
                   ),
                   onPressed: () {
                     fetch();
+                    
                   },
                   child: const Text(
                     "Salvar",
